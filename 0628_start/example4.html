@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- react사용을 위해 반드시 필요한 것 -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+</head>
+<body>
+    <!-- 기본적으로 react사용시에는 아래와 같이 div id="root" 이렇게 만들어주고  -->
+    <div id="root"></div>
+    <!-- <script type="text/javascript">
+    render(){
+        let a = 'aaa'
+        return a
+    }
+    </script>
+//이부분 무슨 의미인지 이해가지 않음 물어볼 것================================================= -->
+
+    <script type="text/babel">
+
+        class Clock extends React.Component{
+            constructor(props){
+                super(props)
+                this.state={
+                    currentTime:new Date().toLocaleTimeString(),
+
+                }
+            }
+            render(){
+                // render(){}는 함수 선언이라 볼 수 있다. 즉 return하기 전까지 변수 등을 선언하는 것이 가능
+                setInterval(()=>{
+                    this.setState({currentTime:new Date().toLocaleTimeString(),})
+                },1000)
+                return(
+                    <div>
+                        <h1>helloworld</h1>
+                        <h2>It is {this.state.currentTime}</h2>    
+                    </div>
+                )
+            }
+
+        }
+
+
+    ReactDOM.render(
+        //전체가 아닌 해당하는 부분만 변화가 나타나도록
+            <Clock/>,
+            document.querySelector('#root')
+        )
+    </script>
+    
+</body>
+</html>

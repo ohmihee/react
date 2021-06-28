@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- react사용을 위해 반드시 필요한 것 -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    //컴포넌트 만들때 첫글자는 항상 대문자
+    class Hello extends React.Component{
+        render(){
+            return(
+                <>
+                    hello  
+                </>
+            )
+        }
+    }
+
+    class World extends React.Component{
+        render(){
+            return (
+                <div>
+                    world
+                </div>
+            )
+        }
+    }
+
+    class App extends React.Component{
+        // 그냥 쓰면 text 자바스크립트로 표현하려면 {}안에 넣어서 사용
+        // 즉 아래 코드에서 ele는 text 그 자체로 ele로 출력
+        // {ele}는 자바스크립트로 표현되어 변수 ele 즉 안녕하세요를 출력
+        render(){
+            const ele = <h1>안녕하세요!!</h1>
+            return(
+                <>
+                    ele
+                    {ele}
+                    
+                    <Hello/> <World/>
+                </>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.querySelector('#root')
+
+    )
+    </script>
+    
+</body>
+</html>

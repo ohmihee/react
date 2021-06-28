@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트 시간</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="./example6.css">
+</head>
+<body>
+    
+    <div id="root">
+    </div>
+    <script type="text/babel">
+
+        class ComponentForm extends React.Component{
+
+            render(){           
+                return(
+                <>
+                    <li className="comment-form">
+                        <form>
+                            <h4>댓글쓰기 <span>(3)</span></h4>
+                            <span className="ps_box">
+                                <input type="text" placeholder="댓글내용을 입력해주세요." className="int"/>
+                            </span>
+                            <input type="submit" value="등록" className="btn"/>
+                        </form>
+                    </li>
+                </>
+                )
+        
+                
+            }
+        }
+
+        class ComponentRow extends React.Component{
+            render(){
+               
+                return(
+                    <>
+                    <li>
+                        <ul className="comment-row">
+                            <li className="comment-id">dasf</li>
+                            <li className="comment-content">dasf</li>
+                            <li className="comment-content">dasf</li>
+                        </ul>
+                    </li>
+                </>
+                )                
+            }
+        }
+
+        class CommentApp extends React.Component{
+            render(){
+
+                return(
+                    <>                       
+                            <ComponentRow/>
+                            <ComponentRow/>
+                            <ComponentRow/>                            
+                            <ComponentForm/>
+                            
+                        
+                    </>
+                )
+            }
+        }
+// javascript + XML = jsx
+
+// xml => 예전에 데이터 주고받던 형식
+        ReactDOM.render(
+            <CommentApp/>,
+            document.querySelector('#root')
+        )
+    </script>
+</body>
+</html>

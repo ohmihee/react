@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <!-- react사용을 위해 반드시 필요한 것 -->
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+</head>
+<body>
+    <!-- 기본적으로 react사용시에는 아래와 같이 div id="root" 이렇게 만들어주고  -->
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+    //바벨사용시에는 위의 script type을 "text/babel"로 해야한다.
+    //LoginBtn만 내가 지정하는 class명 나머지는 외워야함
+        class LoginBtn extends React.Component{
+            constructor(props){
+                super(props)               
+                this.state = {
+                    isLogin:false,
+                }
+            }           
+            render(){
+                return(  // 자바스크립트 영역 => 즉 "" 가 아닌 대괄호로 표시해야함
+                // 아래를(jsx) 실행하려면 바벨을 설치해야함            
+                    <button onClick={()=>{ this.setState({isLogin:!this.state.isLogin}) }}>  
+                        {this.state.isLogin?'로그아웃':'로그인'}    
+                    </button> 
+                    // 아래는 위에와 같은 코드
+                    // React.createElement('button',{onClick:()=>{this.setState({isLogin:!this.state.isLogin})}},this.state.isLogin ? '로그아웃' : '로그인')           
+                );
+            }
+        }
+        
+        ReactDOM.render(           
+            React.createElement(LoginBtn),            
+            document.querySelector('#root')            
+        )
+
+
+        //리엑트는 기본적으로 html을 사용하지 않고 자바스크립트 만으로 화면을 만들 수 있도록 한 것
+    </script>
+    
+</body>
+</html>
