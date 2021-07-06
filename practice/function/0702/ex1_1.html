@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // class의 장점은 상속 => 다른 곳으로부터 데이터를 전달받기 쉽다.
+    // 함수에서는 useState를 통해 class의 장점을 이용 가능해짐
+    
+    class Appp extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                text:'hello world',
+            }
+        }
+        render(){
+            return(
+                <>
+                    <p>{this.state.text}</p>
+                </>
+            )
+        }
+    }
+
+    class AppC extends React.Component{
+        state = {
+            text:'hello world',
+            text1:'hello world1',
+            text2:'hello world'
+        }
+
+        handleClick = e =>{
+            this.setState({text:'바꿈',text2:'바꿈2',text3:'바꿈3'})
+        } 
+        render(){
+            return(
+                <>
+                    <p onClick={this.handleClick}>{this.state.text}</p>
+                    <p>{this.state.text}</p>
+                    <p>{this.state.text}</p>
+                </>   
+            )
+        }
+    }
+
+    function AppF(){
+        //text는 변수고 setText는 함수이다. 헷갈리지 말것
+        let [text,setText] = React.useState('hello world')
+        let [text1,setText1] = React.useState('hello world')
+        let [text2,setText2] = React.useState('hello world')
+        let [list,setList] = React.useState([1,2,3])
+        
+        const handleClick = e => {
+            setText('바꿈1')
+            setText1('바꿈2')
+            setText2('바꿈3')
+        }
+
+        return(
+            <>
+                <p onClick={handleClick}>{text}</p>
+                <p>{text1}</p>
+                <p>{text2}</p>
+                <p>{list}</p>
+                <p>{list.map(v=>v)}</p>
+                <p>{list.map(v=>v+1)}</p>
+            </>
+            
+
+
+        )
+    }
+
+    class App extends React.Component{
+        render(){
+            return;
+        }
+    }
+    
+    ReactDOM.render(
+        <AppF/>,
+        document.querySelector('#root')
+    )
+    </script>
+</body>
+</html>

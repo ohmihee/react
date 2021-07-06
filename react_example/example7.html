@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class Header extends React.Component{
+        render(){
+            return (
+                <ul class="comment">
+                    {this.props.children}
+                </ul>
+            )
+        }
+    }
+    // class App extends React.Component{
+    //     constructor(props){
+    //         super(props)
+
+    //     }
+    // }
+
+ // babel을 사용하여 위의 코드를 아래와 같이 사용가능
+    class App extends React.Component{
+        state = {
+            text:'hello world'
+        }
+        render(){
+            //  출력물
+            return(
+                // state는 결과물을 받아서 사용하는 느낌
+                <div>{this.state.text}</div>
+            )
+        }
+    }
+
+        ReactDOM.render(
+            <App/>, 
+            document.querySelector('#root')
+        )
+    </script>
+</body>
+</html>

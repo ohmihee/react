@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    function Square(props){
+        return(
+            <button className="square" onClick={props.onClick}>
+                {props.value}
+            </button>
+        )
+    }
+    class Board extends React.Component{
+        renderSquare(i){
+            return(
+                <Square
+                    value={this.props.squares[i]}
+                    onClick={()=>this.props.onClick(i)}
+                />
+            )
+        }
+        render(){
+            return(
+                <div>
+                    <div className="board-row">
+                        {this.renderSquare(0)}
+                        {this.renderSquare(1)}
+                        {this.renderSquare(2)}
+                    </div>
+                    <div className="board-row">
+                        {this.renderSquare(3)}
+                        {this.renderSquare(4)}
+                        {this.renderSquare(5)}
+                    </div>
+                    <div>
+                        {this.renderSquare(6)}
+                        {this.renderSquare(7)}
+                        {this.renderSquare(8)}
+                    </div>
+                </div>
+            )
+        }
+    }
+    class Game extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                history: [
+                    
+                ]
+            }
+        }
+    }
+   
+        
+        ReactDOM.render(
+        <Game/>,
+        document.querySelector('#root')
+    )
+        
+       
+    
+
+    </script>
+    
+</body>
+</html>

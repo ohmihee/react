@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+ 
+
+    class CommentList extends React.Component{
+        onDelete = (data) => {
+            let {list} = {...this.state}
+            list[index].content = content
+            
+        }
+        render(){
+            return(
+                this.props.items.map((item,key)=>{
+                    return(               
+                        <li key={key}>
+                            <ul className="comment-row">
+                                <li className="commnet-id">아이디:{item.userid}</li>
+                                <li className="comment-content>">
+                                    <span>댓글내용{item.content}</span>
+                                    <span
+                                        className="comment-delete-btn"
+                                        onClick={()=>{this.props.onDelete(key)}}
+                                    >
+                                        x
+                                    </span>
+                                </li>
+                                <li className="comment-date">
+                                    <span>날짜:{item.date}</span>
+                                </li>                           
+                            </ul>
+                        </li>
+                
+
+                    )
+                })
+                
+               
+                
+
+            );
+        }
+    }
+    class CommentForm extends React.Component{
+        render(){
+            return(
+                <li>
+                    <h4>댓글쓰기<span>조회수</span></h4>
+                    <form>
+                        <input
+                            type="text"
+                            placeholder="댓글을 입력하세요"
+                            name="content"
+                        />
+                        <input type="submit" value="등록"/>
+                    </form>
+                </li>
+            )
+        }
+    }
+
+    class CommentLayer extends React.Component{
+        render(){
+            return(
+                <ul>
+                    {this.props.children}
+                </ul>
+            );
+        }
+    }
+
+    class Comment extends React.Component{
+        state = {
+            list:[]
+        }
+        onCreate = (data) => {
+            let item = {userid:'미희',content:data,date:'2021-07-01'}
+            let {list} = {...this.state}
+            let newList = [...list,{...item}]
+
+            this.setState({list:newList})
+        }
+        render(){
+            return (
+                <CommentLayer>
+                    <CommentForm/>
+                    <CommentList/>
+                </CommentLayer>
+            )
+        }
+    }
+
+    class App extends React.Component{
+        render(){
+            return(
+                <Comment/>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.querySelector('#root')
+    )
+
+
+
+
+    </script>
+    
+</body>
+</html>
