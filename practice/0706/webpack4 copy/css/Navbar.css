@@ -1,0 +1,71 @@
+/*화면이 작아졌을 때 */
+.nav-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.logo{
+    font-size: 3rem; 
+}
+/* rem px */
+
+.links-container.on{
+    height: auto;
+}
+.links-container{
+    height: 0;
+    overflow: hidden;
+}
+.show{
+    height: auto;
+}
+.social-icons{
+    height: 0;
+    overflow: hidden;
+}
+.nav-toggle{
+    font-size: 2.5rem;
+    background: transparent;
+    border-color: transparent;
+}
+/* pc css style  => 반응형 방법*/
+/* 800~1170 px 사이의 경우에만 아래의 css적용됨 */
+@media screen and (min-width:800px){
+    .logo{
+        font-size:4rem
+    }
+    .nav-toggle{
+        font-size:0px;
+    }
+    .nav-center{
+        max-width:1170px;
+        margin:0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+    .links-container{
+        height: auto;
+    }
+    .links-container.on{
+        height: 100%;
+    }
+    .links{
+        display: flex;
+    }
+    .links>li>a{
+        margin: 0 0.5rem;
+        color:#000;
+        font-size:1.25rem;
+    }
+    .social-icons{
+        display: flex;
+    }
+    .social-icons>li>a{
+        margin: 0 0.5rem;
+        color:#000;
+    }
+    
+}
