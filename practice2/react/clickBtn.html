@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<style>
+    .show{
+        display: block;
+    }
+    .hide{
+        display: none;
+    }
+</style>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+// <> => JSX구문
+// JSX => 태생은 js => {React.createElement(LoginBox)}  === <LoginBox/>   
+// babel이 <LoginBox>이렇게 할 수 있도록 만들어줌
+
+        
+    
+
+  
+
+    class ClickBtn extends React.Component{
+        state = {
+            status:'no'
+        }
+        onClick = ()=>{
+            this.setState({status:'click'})
+        }
+        Click = () => {
+            this.state.status ==='click'?this.setState({status:'no'}):this.setState({status:'click'})
+            return this.state.status
+        }
+
+        render(){
+            return(
+                <>
+                    <button onClick={this.onClick}>
+                        Click me
+                    </button>
+                    {this.state.status==='click'?<p className="">clicked</p>:<p className="hide">clicked</p>}
+                    
+                </>             
+                // 해당 버튼을 누르면 onClick함수를 실행   
+            )
+        }
+    }
+    class App extends React.Component{
+        render(){
+            return(
+                <>
+                    <ClickBtn/>
+                   
+                </>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.querySelector('#root')
+    )
+    
+    </script>
+</body>
+</html>
