@@ -1,5 +1,5 @@
-const React = require('react')
-const {Component} = React
+import React,{Component} from 'react'
+import Login from './Login'
 
 class LoginBox extends React.Component{
     state = {
@@ -42,4 +42,5 @@ class LoginBox extends React.Component{
         )
     }
 }
-module.exports = LoginBox
+
+export default LoginBox

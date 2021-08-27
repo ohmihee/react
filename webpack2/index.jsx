@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
-import App from './app'
+import App from './App'
 import './css/index.css'
+//import A from './component/A'
 // index.jsx 즉 현재 파일을 기준으로
 /*
 위에와 아래는 같은 역할
