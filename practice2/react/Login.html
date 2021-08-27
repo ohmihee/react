@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+    class Header extends React.Component{
+        render(){
+            return(
+                <div className="header">
+                    {this.props.children}
+                </div>
+            )
+        }
+    }
+
+    class Logo extends React.Component{
+        render(){
+            return(
+                <h1>Logo</h1>
+            )
+        }
+    }
+
+    class Menu extends React.Component{
+        render(){
+            return(
+                <ul>
+                    <li>menu1</li>
+                    <li>menu2</li>
+                    <li>menu3</li>
+                    <li>menu4</li>
+                </ul>
+            )
+        }
+    }
+    
+    class Utill extends React.Component{
+        login = () => {
+            return(
+                <>
+                    <li>Login</li>
+                    <li>Join</li>
+                </>
+            )
+        }
+
+        logout = () => {
+            return(
+                <>
+                    <li onClick={this.props.onDelete}>Logout</li>
+                    <li>Info</li>
+                </>
+            )
+        }
+
+        render(){
+            return(
+                <ul>
+                    {this.props.isLogin?this.logout():this.login()}
+                </ul>
+            )
+        }
+    }
+
+    class App extends React.Component{
+        state = {
+            isLogin:false,
+        }
+       render(){
+           return(
+               <>
+                    <Header>
+                        <Logo/>
+                        <Menu/>
+                        <p>hello p</p>
+                        <Utill isLogin={this.state.isLgoin} onDelete={this.handleDelete}/>
+                    </Header>
+                    {this.state.isLogin?'':'false'}
+               </>
+           )
+       }
+    }
+    
+    
+    ReactDOM.render(
+        <App/>,
+        document.querySelector('#root')
+    )
+    </script>
+
+
+
+    
+</body>
+</html>

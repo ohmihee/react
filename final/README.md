@@ -64,3 +64,12 @@ action.type에 따른 state를 바꾸는 작업을 함
 
 // 동적라우팅 -> 데이터가 오기 전에 페이지를 구현해서 error발생 -> 이러한 문제 때문에 서버사이드렌더링 필요
 
+
+
+** reducer saga 순서*************************************************8
+reducer - getpost
+reducer - getpost_request
+saga -postsaga-getpost
+saga-postSaga-getpostApi
+saga-postSaga-getpostApi이후의 getpost
+getpostrequest이후의 reducer-post-getpostsuccess

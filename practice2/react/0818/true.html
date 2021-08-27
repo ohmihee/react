@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const reducer = (state,action) => {
+        // state는 App에서 React.useReducer()사용시 state의 기본값으로 준 initalState
+        switch(action.type){
+            case "CHANGE":
+                return {
+                    ...state,
+                    // 얕은 복사
+                    input:action.payload
+                    // App() return부분에서 input의 value에 state.input 값이 들어가므로 이와 같이 return
+                }
+            case "SUBMIT":
+                const {list} = {...state}
+                // 얕은 복사로 state.list복사 이때에 list값이 변해도 ...state의 값에는 영향을 주지 않게 된다.
+                list.push(state.input)
+                return {
+                    ...state, // input:'', list:['asdfasdf'] , visible 
+                    input:'',
+                    list:list
+                }
+            case "DELETE":
+                return {
+                    ...state,
+                    list: state.list.filter( (v,k) => {
+                        //주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
+                        //map => 콜백함수에 의해 값이 변경된 요소 출력
+                        //filter => 조건문을 만족하는 요소 출력
+                        return k !== action.payload
+                        // 즉 이는 list 각각의 index에서 action.payload 즉 선택된 k값(선택된 해당 index)과 일치하지 않는 값들만 반환
+                        // => 결국 k 즉 선택된 index는 state.list에 포함되지 않아 삭제처리
+                    } )
+                }
+            case "VISIBLE":
+                return {
+                    ...state,
+                    visible:action.payload
+                    // action.payload => index 
+                }
+            case "VISIBLEENTER":
+                const newlist = [...state.list]
+                // 현재 리스트의 목록을 newlist에 담음
+                // newlist[index]즉 선택된 부분에 변화된 값을 넣음
+                newlist[action.payload.key] = action.payload.content
+                // a = [2,3,4]
+                // a[2] =5
+                // 2 5 4
+                // 이부분 잘 이해가지 않음===========================================
+                return {
+                    ...state,
+                    list:newlist,
+                    visible:Infinity
+                }
+        }
+    } 
+
+    const App = () => {
+        const initalState = {
+            input:'',
+            list:[],
+            visible:Infinity,
+        }
+
+        const [state,dispatch] = React.useReducer(reducer,initalState)
+        //dispatch는 reducer를 가리키고 reducer는 state를 가리킨다. React.useReducer(인자1,인자2)의 두번째 인자는 state의 초기값
+        // => 즉 initalState가 state의 초기값
+        // useReducer()에서 인자로 주는 것들의 변수명은 마음대로 지정 하여도 가능
+        const [content,setContent] = React.useState('')
+        // content를 선언하고 해당 값의 초기값은 ''로 줌
+        // 나중에 content의 상태값을 바꿀때는 setContent()안에 인자값으로 바꿀값을 주면 해당 인자값이 content의 상태값이 됨
+
+
+        const handleChange = e => { // evnet dispatch 
+            const {value} = {...e.target}
+            dispatch({type:'CHANGE',payload:value})
+        }
+
+        const handleSubmit = e => { // dispatch
+            e.preventDefault()
+            // e.preventDefault -> 현재 이벤트에 대해 동작을 중지시킴 / 이벤트로 인하여 페이지가 새로고침 되는걸 막음
+            dispatch({type:'SUBMIT'})
+        }
+
+        const handleClick = (index) => {
+            dispatch({type:'DELETE',payload:index})
+        }
+
+        const visibleContent = (index) => {
+            dispatch({type:'VISIBLE',payload:index})
+            setContent(state.list[index])
+            //
+        }
+
+        const visibleChange = e => {
+            //console.log(e.target.value)
+            const {value} = {...e.target}
+            setContent(value)
+        }
+
+        const visibleEnter = e => {
+            //?????????????????data-key로 해서 변수명을 주고 e.target.dataset.key로 받는 것인지??????????????????????????????????
+            const {key} = {...e.target.dataset}  //여기서 key는 index라고 생각하면 될 듯
+            //console.log(...e.target.dataset,'e.target.dataset')
+            // {...e.target.dateset} -> 그냥 선택된 부분의 index를 가르쳐 주기만 하는 듯
+            //console.log(key,'========key') -> 선택된 부분의 index를 콘솔로 찍어줌
+            //console.log('e.key=============================',e.key) =>'Enter'
+            if(e.key === 'Enter'){
+                // e.key -> 현재 진행되고 있는 동작에 대해서 말해줌
+                // 글자를 치고 있는 중일때는 process 출력 enter시에는 Enter출력
+                // 즉 Enter를 눌렀을때 아래를 실행
+                dispatch({
+                    type:'VISIBLEENTER',payload: {
+                        key:key,
+                        content:content
+                    }
+                })
+            }
+        }
+
+        return (
+            <>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" onChange={handleChange} value={state.input} />
+                    <button type="submit">등록</button>
+                </form>
+                <ul>
+                    {
+                        /*
+                            login 한번클리하면 logout 
+                            logout 또 클릭하면 login
+                            boolean -> 조건부 랜더링 
+                        */
+                        state.list.map((v,k)=>{
+                            // v -> 해당 k 즉 index에 해당하는 content(내용/값)
+                            // k -> index
+                            // key={k} list의 전체 배열을 한 번씩 출력
+                            return (
+                                <li key={k}>
+                                    
+                                    <span onClick={()=>visibleContent(k)}>
+                                        {// visibleContent(k) 의 인자를 통해 k(index) 전달
+                                            // index(k)는 클릭 된 값 즉 comment리스트에서 선택된 값은 input으로 해당 부분을 보여줌
+                                            // index(k)와 일치하지 않는 리스트는 나머지는 그냥 <span>으로 출력
+                                                /*
+                                                ex const a = [<li>1</li>,<li>2</li>]
+
+                                                return(
+                                                    <>
+                                                        <ul>
+                                                            {a}
+                                                        </ul>
+                                                    </>
+                                                    => <ul>
+                                                            <li>
+                                                            </li>
+                                                       </ul>
+                                        
+                                                )
+                                                */
+                                            state.visible === k
+                                            ? <input 
+                                                type="text"
+                                                value={content} 
+                                                onKeyDown={visibleEnter} 
+                                                onChange={visibleChange}
+                                                data-key={k}
+                                                />
+                                                // data-  =>  k값을 받기 위해 data-로 사용 
+                                                // 받을 때는 e.target.dataset.key로 받음
+                                            : v
+                                        }
+                                    </span>
+                                    <button onClick={()=>handleClick(k)}>X</button>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </>
+        )
+    }
+
+    ReactDOM.render(
+        <App />,
+        document.querySelector('#root')
+    )
+</script>
+</body>
+</html>

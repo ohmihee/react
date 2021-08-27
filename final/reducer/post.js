@@ -24,6 +24,7 @@ export const GET_POST_DETAIL_FAIL ="GET_POST_DETAIL_FAIL"
 
 
 export const GET_POST = () => {
+    console.log('reducer - getpost')
     return{
         type:GET_POSTS_REQUEST
     }
@@ -40,12 +41,14 @@ export const GET_POST_DETAIL = data => {
 const reducer = (state=initalState,action) => {
     switch(action.type){
         case GET_POSTS_REQUEST:
+            console.log('reducer - getpost_request')
             return{
                 ...state,
                 loadding:true
             }
         case GET_POSTS_SUCCESS:
             //console.log('도착????==============================')
+            console.log('getpostrequest이후의 reducer-post-getpostsuccess')
             return{
                 ...state,
                 posts:[...state.posts,...action.data],
