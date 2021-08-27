@@ -72,7 +72,10 @@ const reducer = (state=initalState,action) => {
                 loadding:false
             }
         default :
-            return state
+            return {
+                ...state,
+                loadding:false
+            }
     }
 }
 
