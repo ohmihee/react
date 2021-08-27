@@ -1,11 +1,13 @@
-import { defaultConfig } from 'next/dist/server/config-shared'
+
 import React from 'react'
+import RootProvider from '../Providers/rootProvider'
 
 const index = () => {
     return(
-        <>
+        <RootProvider>
+        
             hello next
-        </>
+        </RootProvider>
     )
 }
 

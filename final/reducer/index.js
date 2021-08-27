@@ -1,9 +1,9 @@
 import React from 'react'
-import HYDRATE from 'next-redux-wrapper'
+import {HYDRATE} from 'next-redux-wrapper'
 import { combineReducers} from 'redux'
 import post from './post'
 
-const rootReducer = (state,action) => {
+const rootReducer = (state = {},action) => {
     switch(action.type){
         case HYDRATE:
             return action.payload
@@ -13,6 +13,7 @@ const rootReducer = (state,action) => {
                 // user,
             })
             return combineReducer(state,action)
+
     }
 }
 

@@ -7,7 +7,7 @@ export const initalState = {
 
 // REDUX ACTIONS
 // 상수명으로 바꾸어서 주는 것이 나중에 오류 발생시 오류를 찾기 쉽다.
-export const GET_POSTS_REQUEST = "GET_POSTs_REQUEST"
+export const GET_POSTS_REQUEST = "GET_POSTS_REQUEST"
 export const GET_POSTS_SUCCESS ="GET_POSTS_SUCCESS"
 export const GET_POST_FAIL ="GET_POST_FAIL"
 
@@ -23,12 +23,13 @@ const reducer = (state=initalState,action) => {
         case GET_POSTS_REQUEST:
             return{
                 ...state,
-                posts:[...state.posts,...action.data],
                 loadding:true
             }
         case GET_POSTS_SUCCESS:
+            console.log('도착????==============================')
             return{
                 ...state,
+                posts:[...state.posts,...action.data],
                 loadding:false
             }
         case GET_POST_FAIL:
@@ -40,3 +41,5 @@ const reducer = (state=initalState,action) => {
             return state
     }
 }
+
+export default reducer

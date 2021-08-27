@@ -18,8 +18,8 @@ const configureStore = () => {
     // development 일때는 아래의 내용을 실행
     : composeWithDevTools(applyMiddleware(...Middlewares)) 
     const Store = createStore(reducer,enhancer)
-    Store.sagaTask = sagaMiddlewares.run(rootSaga) // server side rendering
-    //Store.sageTask = sagaMiddlewares.run(rootSaga)
+    //Store.sagaTask = sagaMiddlewares.run(rootSaga) // server side rendering
+    Store.sagaTask = sagaMiddlewares.run(rootSaga)
     return Store
 
 }
