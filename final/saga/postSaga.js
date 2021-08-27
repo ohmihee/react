@@ -3,7 +3,10 @@ import axios from 'axios'
 import {
     GET_POSTS_REQUEST,
     GET_POSTS_SUCCESS,
-    GET_POST_FAIL
+    GET_POST_FAIL,
+    GET_POSTS_DETAIL_REQUEST,
+    GET_POSTS_DETAIL_SUCCESS,
+    GET_POST_DETAIL_FAIL
 } from '../reducer/post'
 
 let BaseURL = process.env.NODE_ENV.backurl||'https://jsonplaceholder.typicode.com'
@@ -36,6 +39,26 @@ function* getPosts(){
     yield
 }
 
+function* getPostDetail(action){
+    try{
+        const {data} = yield call (getPostAPI,action.data)
+        yield put({
+            type:GET_POSTS_DETAIL_SUCCESS,
+            data
+        })
+    }catch(e){
+        yield put({
+            type:GET_POST_DETAIL_FAIL,
+            data:'ERROR'
+        })
+    }
+}
+
+
+
+
+
+
 function* watchPosts(){
     yield takeLatest(GET_POSTS_REQUEST,getPosts)
     // 마지막으로 입력된 이벤트의 값만 실행하도록 하는 함수 
@@ -49,10 +72,14 @@ function* watchPosts(){
     }
     */
 }
+function* watchPostDetail(){
+    yield takeLatest(GET_POSTS_DETAIL_REQUEST,getPostDetail)
+}
 
 export default function* postSaga(){
     yield all([
         fork(watchPosts),
         //fork는 인자값으로 준 것을 실행
+        fork(watchPostDetail)
     ])
 }

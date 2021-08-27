@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from "react-redux"
 import wrapper from '../Providers/createCtx'
 import {GET_POST} from '../reducer/post'
 import {END} from 'redux-saga'
+import Link from 'next/link'
 
 const posts = () => {
     const dispatch = useDispatch()
@@ -10,7 +11,8 @@ const posts = () => {
     const postLink = posts.map((v,k)=>{
         return(
             <li key={k}>
-                <h2>{v.title}</h2>
+                <h2><Link href="/posts/[id]" as={`/posts/${v.id}`}><a>{v.title}</a></Link></h2>
+                {/* <Link href={`/posts/${id}`}><a>{v.title}</a></Link> */}
                 <span>{v.body}</span>
             </li>
         )
@@ -27,7 +29,6 @@ const posts = () => {
                 console.log('hello============================================')
             }
         }
-
         window.addEventListener('scroll',scrollFn)
         return () => {
             window.removeEventListener('scroll',scrollFn)
