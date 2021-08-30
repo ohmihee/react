@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    const reducer = (state,action) => {
+        switch(action.type){
+            case "CHANGE":
+                return {
+                    ...state,
+                    input:action.payload
+                }
+            case "SUBMIT":
+                const {list} = {...state}
+                list.push(state.input)
+                return {
+                    ...state,
+                    input:'',
+                    list:list
+                }
+            case "DELETE":
+                return {
+                    ...state,
+                    list: state.list.filter( (v,k) => {
+                        return k !== action.payload
+                    } )
+                }
+            case "VISIBLE":
+                return {
+                    ...state,
+                    visible:action.payload
+                }
+            case "VISIBLEENTER":
+                const newlist = [...state.list]
+                newlist[action.payload.key] = action.payload.content
+                return {
+                    ...state,
+                    list:newlist,
+                    visible:Infinity
+                }
+        }
+    }
+    
+
+    const App = () => {
+        const initalState = {
+            input:'',
+            list:[],
+            visible:Infinity,
+        }
+
+        const [state,dispatch] = React.useReducer(reducer,initalState)
+        const [content,setContent] = React.useState('')
+
+        const handleChange = e => { // evnet dispatch 
+            const {value} = {...e.target}
+            dispatch({type:'CHANGE',payload:value})
+        }
+
+        const handleSubmit = e => { // dispatch
+            e.preventDefault()
+            dispatch({type:'SUBMIT'})
+        }
+
+        const handleClick = (index) => {
+            dispatch({type:'DELETE',payload:index})
+        }
+
+        const visibleContent = (index) => {
+            dispatch({type:'VISIBLE',payload:index})
+            setContent(state.list[index])
+        }
+
+        const visibleChange = e => {
+            const {value} = {...e.target}
+            setContent(value)
+        }
+
+        const visibleEnter = e => {
+            const {key} = {...e.target.dataset}  //여기서 key는 index라고 생각하면 될 듯
+            if(e.key === 'Enter'){
+                dispatch({
+                    type:'VISIBLEENTER',payload: {
+                        key:key,
+                        content:content
+                    }
+                })
+            }
+        }
+
+        return (
+            <>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" onChange={handleChange} value={state.input} />
+                    <button type="submit">등록</button>
+                </form>
+                <ul>
+                    {
+                        state.list.map((v,k)=>{
+                            return (
+                                <li key={k}>                                    
+                                    <span onClick={()=>visibleContent(k)}>
+                                        {
+                                            state.visible === k
+                                            ? <input 
+                                                type="text"
+                                                value={content} 
+                                                onKeyDown={visibleEnter} 
+                                                onChange={visibleChange}
+                                                data-key={k}
+                                                />
+                                            : v
+                                        }
+                                    </span>
+                                    <button onClick={()=>handleClick(k)}>X</button>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </>
+        )
+    }
+    ReactDOM.render(
+        <App />,
+        document.querySelector('#root')
+    )
+</script>
+</body>
+</html>
+
+
+
+

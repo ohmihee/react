@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+    class CounterFn extends React.Component{
+        /*
+        constructor(props){
+            super(props)
+            this.state = {
+                number:0
+            }
+        }
+**/
+// babel을 통해 위의 코드를 아래와 같이 사용 가능 이 모든 것은 babel로 인해 가능
+        state = {
+            number:0
+        }
+        onUp = ()=> {
+            this.setState({number:this.state.number+1})
+        }
+        onDown = () => {
+            this.setState({number:this.state.number-1})
+        }
+        render(){
+            return(
+                // class에서 변수에 접근하기 위해서는 this를 사용해서 접근해야 한다.
+                // class는 본래 construncor즉 생성자 함수만 실행
+                // reactDOM.render()함수를 통해 render함수를 실행
+                <>
+                    <h1>{this.state.number}</h1>
+                    <button onClick={this.onUp}>+1</button>
+                    <button onClick={this.onDown}>-1</button>
+                </>
+                // JSX문법 안에 자바스크립트 문법을 사용하려면 {}안에서 사용 
+                //ex) <>{console.log('here is javascript')}</>
+                // onClick에 바로 함수를 주면 바로 실행 - 함수명 ()이와 같이
+                // onClick으로 함수 안에 함수를 주는 식으로 코드를 짜면 해당 이벤트 실행시에만 해당 함수 적용
+
+            )
+        }
+    }
+
+    const Counter = () => {
+        const [number,setNumber] = React.useState(0)
+
+        const onUp = () =>{
+            setNumber(number+1)
+        }
+        const onDown = () => {
+            setNumber(number-1)
+        }
+        console.log('function')
+        return(
+            <div>
+                {console.log('render')}
+                <h1>{number}</h1>
+                <button onClick={onUp}>+1</button>
+                <button onClick={onDown}>-1</button>
+            </div>
+        )
+    }
+    
+    
+    ReactDOM.render(
+        <Counter/>,
+        document.querySelector('#root')
+    )
+
+    // 함수형 컴포넌트는 생성자 함수만 실행하는 클래스형 컴포넌트와 다르게 담기는 그 순간부터 전체가 실행된다. 
+    // 즉 함수형 컴포넌트는 해당 이벤트를 실행하였을때 해당 이벤트에 해당하는 함수만 실행하는 것이 아니라 전체를 다 렌더 한다.
+    // 때문에 위의 함수형 컴포넌트는 이벤트 발생시 return부분만이 아니라 전체 함수가 실행되므로 function과 rneder 두 함수 모두 실행된다.
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <!-- 마인드 아! 
+    아 했다고 정확한게 이해하니다.
+    안 보고 쓸 수 있을 정도로 이해가 필요
+
+    CRUD********************************************************************************************************
+    속도 = 실력
+
+    초급 중급 고급
+    주니어 시니어
+
+    => 속도의 차이
+    -->
+    <div id="root"></div>
+    <script type="text/babel">
+    
+    class Btn extends React.Component{
+        state = {
+            number:0
+        }
+
+        plus = () => {
+            this.setState({number:this.state.number+1})
+            console.log(this.state.number)
+        }
+
+        minus = () => {
+            this.setState({number:this.state.number-1})
+            console.log(this.state.number)
+        }
+
+        render(){
+            return(
+                <>
+                    <input type="number" value={this.state.number}/>
+                    <button onClick={this.plus}>+</button>
+                    <button onClick={this.minus}>-</button>
+                </>
+            )
+        }
+    }
+
+    // class Reply extends React.Component{
+    //     state = {
+    //         reply:'',
+    //         list:[],
+    //     }
+    //     onChange = (e) =>{  
+    //         this.setState({reply:e.target.value})
+    //     }
+    //     onClick = () => {            
+    //         this.state.list.push(this.state.reply)
+    //         const renderList = []
+    //         console.log(this.state.list)
+    //         this.state.list.map((v,k)=>{
+    //             <li key={k}>{v}  {console.log(v)}</li>
+    //         })
+    //     }
+        
+    //     render(){
+    //         return(
+    //             <>
+    //                 <input type="text" onChange={this.onChange} value={this.state.reply}/>
+    //                 <button onClick={this.onClick}>click</button>
+                    
+    //             </>
+    //         )
+    //     }
+
+    // }
+
+    // const App2 = () => {
+    //     const [input,setInput] = React.useState('')
+    //     const [list,setList] = React.useState([])
+
+    //     const handleChange = (e) => {
+    //         const {value} = {...e.target}
+    //         setInput(value)
+
+    //     }
+    //     const handleSubmit = () =>{
+    //         e.preventDefault()
+    //         list.push(input)
+    //         setList(list)
+    //         setInput('')
+    //     }
+    //     return(
+    //         <>
+    //             <form>
+    //                 <input type="text" onChange={handleChange} value={input}/>
+    //                 <button type="submit">등록</button>
+    //             </form>
+    //             <ul>
+    //                 {
+    //                     list.map((v,k)=>{
+    //                         return <li key={k}>{v}</li>
+    //                     })
+    //                 }
+    //             </ul>
+    //         </>
+    //     )
+    // }
+    // const App2 = () => {
+    //     const reducer = () => {
+    //         console.log('reducer')
+    //     }
+    //     [state,dispatch] = React.useReducer(reducer,'')
+    // }
+
+    const App = () =>{
+        // action -> type
+        
+        const reducer = (state,action) => {
+            switch(action.type){
+                case "CHANGE":
+                    return {
+                        ...state,
+                        input:action.payload
+                    }
+                case "SUBMIT":
+                    const {list} = {...state}   // ...state => 얕은 복사
+                    list.push(state.input)
+                    return{
+                        input:'',
+                        list:list
+                    }
+            }
+        }
+
+        // useReducer =>  state관리하기 위해서
+        //                state 객체로 사용하기 위해서
+
+        // Redux -> React -> useReducer
+        const initalState = {
+            input:'',
+            list:[]
+        }
+        const [state,dispatch] = React.useReducer(reducer,initalState)
+
+        //const [input,setInput] = React.useState()
+        //const [list,setList] = React.useState([])
+
+        const handleChange = e => {      //event dispatch
+            const {value} = {...e.target}
+            //setInput(value)
+            dispatch({type:'CHANGE',payload:value})
+            // dispatch()에 인자로 준 값 즉 객체롤  action이라고 함
+        }
+
+        const handleSubmit = e =>{  //dispatch
+            e.preventDefault()
+            dispatch({type:'SUBMIT'})
+            //list.push(input)
+            //setList(list)
+            //setInput('')
+        }
+
+        return(
+            <>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" onChange={handleChange} value={state.input}/>
+                    <button type="submit">등록</button>
+                </form>
+                <ul>
+                    {
+                        state.list.map((v,k)=>{
+                            return <li key={k}>{V}</li>
+                        })
+                    }
+                </ul>
+
+            </>
+        )
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.querySelector('#root')
+    )
+    </script>
+    
+</body>
+</html>

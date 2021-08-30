@@ -1,0 +1,135 @@
+#리눅스 명령어
+ls : 디렉토리 내용 보기 (현위치)
+ls -al : 디렉토리 상세하게 보기 
+- 10글자 
+x xxx xxx xxx  계정명 계정명
+d rwx r-x r-x  계정명 계정명 
+
+pwd : 내 경로 보기
+cd / : 최상위 디렉토리 갑니다.
+
+cd ~ : 우리가 작업 할 디렉토리 
+
+sudo su // 계정이 ubuntu 
+        // 계정이 root
+
+mysql_secure_installation
+
+y or enter
+
+password 간단하게 만들어주세요.
+
+set password for 'root'@'localhost' = PASSWORD('root');
+
+
+select user,host,plugin from user; 
+
+| plugin              |
+|mysql_native_password| 
+
+UPDATE user SET plugin='mysql_native_password' where user='root';
+
+flush privileges; // 
+
+root 접속된상태에서
+ctrl + c mysql접속을 끊으시고.
+
+exit 써서 root계정을 빠져나오십니다.
+
+
+ubuntu@ip-172-31-2-242 :  mysql -uroot -p"password"
+
+15.165.235.149
+
+: <-- 쉬프트누르고 ; 
+
+: wq! 
+
+cd ~
+
+sudo chown -R ubuntu.ubuntu ./aswTest <--
+
+
+// 공인인증서 
+ssh -i "ingoo-webpc.pem" ubuntu@ec2-3-36-100-94.ap-northeast-2.compute.amazonaws.com
+
+
+22번포트로 다른사람에게 접속하겠다 
+ssh -i "파일명" 계정명@아이피주소 
+
+ps -ef | grep 
+
+sudo npm install -g pm2
+
+# pm2 명령어
+sudo npx pm2 start [파일명]
+npx pm2 stop [파일명] (확장자빼고)
+npx pm2 monit
+npx pm2 kill 
+npx pm2 list
+
+http://3.36.100.94/
+
+
+ssh -i "algml-webpack.pem" ubuntu@ec2-18-117-250-39.us-east-2.compute.amazonaws.com
+
+색깔 초록초록
+계정명@주소:디렉토리$(커서)
+ububtu
+@ip-172-31-1-199
+:
+~
+$ 이후에 커서
+
+경로 linux '/' 경로구분
+     window '\' 경로구분
+~ : home 디렉토리(계정에 대한 디렉토리)
+~ -> /home/계정명
+
+cd / 치고
+
+ububtu@ip-172-31-1-199~$ -> ubuntu@ip-172-31-1-199:/$
+
+다시 홈 디렉토리로 가는방법
+cd /gome/ubuntu == cㅇ ~ 같은거
+
+// 리눅스에서는 파일명 앞에 .이 붙으면 숨김파일 ex) .gitignore .EGfz08NMucR4a2VlGsDXu1
+
+ls -al -> 다 보여달라
+ls -> 숨김파일 제외하고 보여달라
+
+git clone해서 받은 경우 즉 git 주소가 다를때 
+
+rm [옵션] 디렉토리 or 파일명
+     -r : 하위폴더도 삭제
+     -f : 파일권한 상관없이 강제적으로 실행
+
+rm -r ./aswTest
+rm -rf <-- 매우 위험 신중하게 다룰 것 / 경고//
+
+pwd -> home/ubuntu
+# delete -> hove/ubuntu./aswTest
+rm -rm ./awsTest
+
+# delete -> home/ubuntu/awsTest
+
+DB 접속 실패 : SequelizeConnectionError: Unknown database 'react_comment'
+
+mysql 접속해서 react_comment데이터베이스를 생성
+mysql -uroot -proot
+
+다시 서버 키려면 
+db를 나가서 node server.js  (ctrl+C눌러서 나감)
+
+** vi  => 파일을 보여줌
+** cd => 경로이동
+** config.json => 에서 내용은 local db가 아니라 ubuntu에서 설정한 비밀번호로 해야함
+
+80번 포트로 바꾸기
+1~1500 => sudo 즉 관리자만 사용가능한 포트 
+
+
+
+
+
+

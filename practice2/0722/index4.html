@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <!--
+        // counter => 상태값 이벤트
+        // reducer없이 사용해보기.
+        // 리스트 생성되는 것 까지만 해보기
+        // reducer
+        //  리스트생성 / 삭제 -> filter메서드 이해하기 / 수정
+        // 컴포넌트 나누기 context
+        // TODO List
+        // webpack으로 react환경 구축해서 아래의 코드를 나눠서 컴포넌트로 쪼개서 만들어보기
+        // 완성하면 context배울 수 있음
+
+    -->
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const reducer = (state,action) => {
+            switch(action.type){
+                case "CHANGE":
+                    return {
+                        ...state,
+                        input:action.payload
+                    }
+                case "SUBMIT":
+                    
+                    const {list} = {...state}
+                    list.push(state.input)
+                    return {
+                        ...state,   //  모든 상태값을 얕은 복사로 가져와서 
+                        input:'',   // input값을 이와 같이 바꾸고
+                        list:list    // list는 이와 같이 바꿈
+                    }
+                case "DELETE":
+                    return {
+                        ...state,
+                        list: state.list.filter( (v,k) => {
+                            return k !== action.payload
+                        } )
+                    }
+                case "VISIBLE":
+                    return{
+                        ...state,
+                        visible:action.payload
+                    }
+                case "VISIBLEENTER":
+                    const newlist = [...state.list]
+                    newlist[action.payload.key] = action.payload.content
+                    return{
+                        ...state,
+                        liet:newlist,
+                        visible:Infinity
+                    }
+            }
+        }
+
+        const App = () => {
+            const initalState = {
+                input:'',
+                list:[],
+                visible:Infinity   //Infinity -> 무한대의 값(숫자)
+            }
+
+            const [state,dispatch] = React.useReducer(reducer,initalState)
+            //const [visible,setVisible] = React.useReducer(Infinity)
+            const [content,setContent] = React.useReducer
+
+            const handleChange = e => { // evnet dispatch 
+                const {value} = {...e.target}
+                dispatch({type:'CHANGE',payload:value})
+            }
+
+            const handleSubmit = e => { // dispatch
+                e.preventDefault()
+                dispatch({type:'SUBMIT'})
+            }
+
+            const handleClick = (k) => {
+                dispatch({type:'DELETE',payload:k})
+            }
+
+            const visibleContent = (k) => {
+                //console.log(k)
+                dispatch({type:'VISIBLE',payload:k})
+                setContent(state.list[index])
+            }
+
+            const visibleChange = e => {
+                console.log(e.target.value)
+                const {value} = {...e.target}
+                setContent(value)
+            }
+
+            const visibleEnter = e => {
+                const {value} = {...e.target}
+                if(e.key==="Enter"){
+                    console.log(e.key)
+                    dispatch({type:"VISIBLEENTER",payload:value})
+                }
+            }
+
+            return (
+                <>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" onChange={handleChange} value={state.input} />
+                        <button type="submit">등록</button>
+                    </form>
+                    <ul>
+                        {
+                            /*
+                            login 한번 클릭하면 ㅣlogout
+                            logout 한 번 클릭하면 login
+                            boolean -> 조건부 렌더링
+                            */
+                            state.list.map((v,k)=>{
+                                //<span onClick={()=>visibleContent(k)}>{v}</span>
+                                return(
+                                     <li key={k}>
+                                        <span onClick={()=>{visibleContent(k)}}>
+                                            {
+                                                state.visible ===k  // 한번도 클릭하지않았을 때
+                                                ?<input type="text" value={content} onKeyDown={vusibleEnter} onChange={visibleChange}/>
+                                                :v
+                                            }
+                                        </span>
+                                        <button onClick={()=>handleClick(k)}>X</button></li>
+                                     )
+                            })
+                        }
+                    </ul>
+                </>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.querySelector('#root')
+        )
+    </script>
+</body>
+</html>
+</body>
+</html>
