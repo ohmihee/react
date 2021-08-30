@@ -66,7 +66,7 @@ action.type에 따른 state를 바꾸는 작업을 함
 
 
 
-** reducer saga 순서*************************************************8
+** reducer saga 순서*************************************************
 reducer - getpost
 reducer - getpost_request
 saga -postsaga-getpost

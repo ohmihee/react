@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // counter -> 상태값 이벤트 
+    // reducer 없이 사용해보기.
+    // 리스트 생성되는것 까지만 해보셔 괜찮음. -> map
+    // reducer 
+    // 삭제 -> filter 매서드를 완전히 이해하고 계셔야합니다.
+    // 수정 ->
+    // 컴포넌트 나누기. context 
+    // 상태관리에대해서 완벽한 이해가 생기기 시작할거에요 
+    // TODO List 
+    // **** 웹팩으로 react 환경 구축해서 아래의코드를 나눠서 컴포넌트로 쪼개서 만들어보세요. *****
+    // 완성이되면 그땐 context 배울수가있습니다.
+    // 
+    //
+    //
+    //
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+        const reducer = (state,action) => {
+            switch(action.type){
+                case "CHANGE":
+                    return {
+                        ...state,
+                        input:action.payload
+                    }
+                case "SUBMIT":
+                    const {list} = {...state}
+                    list.push(state.input)
+                    return {
+                        ...state, // input:'', list:['asdfasdf'] , visible 
+                        input:'',
+                        list:list
+                    }
+                case "DELETE":
+                    return {
+                        ...state,
+                        list: state.list.filter( (v,k) => {
+                            return k !== action.payload
+                        } )
+                    }
+                case "VISIBLE":
+                    return {
+                        ...state,
+                        visible:action.payload
+                    }
+                case "VISIBLEENTER":
+                    const newlist = [...state.list]
+                    newlist[action.payload.key] = action.payload.content
+               
+                    return {
+                        ...state,
+                        list:newlist,
+                        visible:Infinity
+                    }
+            }
+        }
+        
+
+        const App = () => {
+            const initalState = {
+                input:'',
+                list:[],
+                visible:Infinity,
+            }
+
+            const [state,dispatch] = React.useReducer(reducer,initalState)
+            const [content,setContent] = React.useState('')
+
+            const handleChange = e => { // evnet dispatch 
+                const {value} = {...e.target}
+                dispatch({type:'CHANGE',payload:value})
+            }
+
+            const handleSubmit = e => { // dispatch
+                e.preventDefault()
+                dispatch({type:'SUBMIT'})
+            }
+
+            const handleClick = (index) => {
+                dispatch({type:'DELETE',payload:index})
+            }
+
+            const visibleContent = (index) => {
+                dispatch({type:'VISIBLE',payload:index})
+                setContent(state.list[index])
+            }
+
+            const visibleChange = e => {
+                console.log(e.target.value)
+                const {value} = {...e.target}
+                setContent(value)
+            }
+
+            const visibleEnter = e => {
+                const {key} = {...e.target.dataset}
+                if(e.key === 'Enter'){
+                    dispatch({
+                        type:'VISIBLEENTER',payload: {
+                            key:key,
+                            content:content
+                        }
+                    })
+                }
+            }
+
+            return (
+                <>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" onChange={handleChange} value={state.input} />
+                        <button type="submit">등록</button>
+                    </form>
+                    <ul>
+                        {
+                            /*
+                                login 한번클리하면 logout 
+                                logout 또 클릭하면 login
+                                boolean -> 조건부 랜더링 
+                            */
+                            state.list.map((v,k)=>{
+                                return (
+                                    <li key={k}>
+                                        <span onClick={()=>visibleContent(k)}>
+                                            {
+                                                state.visible === k
+                                                ? <input 
+                                                    type="text"
+                                                    value={content} 
+                                                    onKeyDown={visibleEnter} 
+                                                    onChange={visibleChange}
+                                                    data-key={k}
+                                                  />
+                                                : v
+                                            }
+                                        </span>
+                                        <button onClick={()=>handleClick(k)}>X</button>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.querySelector('#root')
+        )
+    </script>
+</body>
+</html>
