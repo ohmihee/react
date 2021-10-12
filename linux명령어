@@ -50,8 +50,7 @@ cd ~
 sudo chown -R ubuntu.ubuntu ./aswTest <--
 
 
-// 공인인증서 
-ssh -i "ingoo-webpc.pem" ubuntu@ec2-3-36-100-94.ap-northeast-2.compute.amazonaws.com
+
 
 
 22번포트로 다른사람에게 접속하겠다 
@@ -71,7 +70,7 @@ npx pm2 list
 http://3.36.100.94/
 
 
-ssh -i "algml-webpack.pem" ubuntu@ec2-18-117-250-39.us-east-2.compute.amazonaws.com
+
 
 색깔 초록초록
 계정명@주소:디렉토리$(커서)
