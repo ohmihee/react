@@ -1,4 +1,4 @@
-## ssh -i "algml-webpack.pem" ubuntu@ec2-18-224-31-13.us-east-2.compute.amazonaws.com
+
 # back에서 설치한 것 
 => nodejs / mysql
 # front 설치해야할 것
