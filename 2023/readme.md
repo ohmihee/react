@@ -3,6 +3,7 @@ https://cocoon1787.tistory.com/796
 https://ko.reactjs.org/docs/hooks-reference.html
 https://velog.io/@yes3427/React-Side-Effect
 https://github.com/excalidraw/excalidraw/blob/master/src/scene/selection.ts
+https://ui.toast.com/weekly-pick/ko_20200916
 [ 리엑트 관련 개념 학습 ] -------------------------------------------------------------- 리엑트 관련 훅 종류와 개념 및 사용법 습득
 
 ### useState
