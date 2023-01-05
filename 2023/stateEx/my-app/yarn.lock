@@ -1589,6 +1589,13 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.11.2.tgz#0ff8066bee7e9654fd978cb671e9c12c9d2a65b7"
   integrity sha512-ztLQELdSSuJFXezng8g5eCzy8mogtzMM8JcfG3HIGgUJ2RlAiBXI2Qe0adKmrJlF4FMat8vTaTeoiRNBZH4t1Q==
 
+"@mui/icons-material@^5.11.0":
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.11.0.tgz#9ea6949278b2266d2683866069cd43009eaf6464"
+  integrity sha512-I2LaOKqO8a0xcLGtIozC9xoXjZAto5G5gh0FYUMAlbsIHNHIjn4Xrw9rvjY20vZonyiGrZNMAlAXYkY6JvhF6A==
+  dependencies:
+    "@babel/runtime" "^7.20.6"
+
 "@mui/material@^5.11.2":
   version "5.11.2"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.11.2.tgz#8f0ce18d2cf9da9276f6f19b40a681225098ea09"
@@ -2570,6 +2577,13 @@ adjust-sourcemap-loader@^4.0.0:
   dependencies:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
+
+ag-grid-react@^28.2.1:
+  version "28.2.1"
+  resolved "https://registry.yarnpkg.com/ag-grid-react/-/ag-grid-react-28.2.1.tgz#c38585b8f165a5cf9343eab6994c06855f5b2caf"
+  integrity sha512-3vbw+B77uWwAyiOJxQA5U+PQFRCCccUx7L5PIwrnA4Y7c1yAu8sB65hAZdBc9kuW26iltwv7asq0UzP7UAQUpg==
+  dependencies:
+    prop-types "^15.8.1"
 
 agent-base@6:
   version "6.0.2"

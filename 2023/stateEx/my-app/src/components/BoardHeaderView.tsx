@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+
 import { Button, Container, Divider, Grid, IconButton, Link, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -13,7 +13,7 @@ interface Props {
   loginBtn: () => void
 }
 
-const BoardHeaderView = observer(({
+const BoardHeaderView = ({
   isLogin,
   menuList,
   loginBtn,
@@ -63,7 +63,7 @@ const BoardHeaderView = observer(({
       <Divider />
     </Grid>
   );
-});
+};
 
 
 export default BoardHeaderView;

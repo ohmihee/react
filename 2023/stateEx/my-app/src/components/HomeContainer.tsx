@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
-import { BoardContentsView, BoardHeaderView } from '~/comp/view/board/home/view';
 import { Grid } from '@mui/material';
+import BoardHeaderView from './BoardHeaderView';
+import BoardContentsView from "./BoardContentsView";
 
 interface Props {
   //
@@ -69,5 +69,5 @@ const HomeContainer = ({
   );
 };
 
-export default observer(HomeContainer);
+export default HomeContainer;
 

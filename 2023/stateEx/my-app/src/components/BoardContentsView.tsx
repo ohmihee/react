@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import { Container, Grid } from '@mui/material';
 import { AgGridReact } from 'ag-grid-react';
 
@@ -11,16 +10,16 @@ const testData = [
   {},
 ];
 
-const BoardContentsView = observer(({
+const BoardContentsView = ({
 
 }:Props)=>{
   return (
-    <Grid container sx={{ backgroundColor:'white' }}>
+    <Grid container sx={{ backgroundColor:'white' }}>s
       <AgGridReact>
 
       </AgGridReact>
     </Grid>
   );
-});
+};
 
 export default BoardContentsView;
