@@ -1,4 +1,5 @@
 
+https://kha0213.github.io/jpa/jpa-entity-mapping/
 # 참고하기 유용한 블로그나 사이트 url
 ### 자바스크립트 이벤트 버블링과 캡쳐
 https://jungpaeng.tistory.com/69
