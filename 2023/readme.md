@@ -34,7 +34,7 @@ const HomeContainer = () => {
 
 export default observer(HomeContainer);
 // setCount 와 같은 state의 값을 갱신하여 주는 set함수의 경우에 현재 state의 값을 인자를 통해 받을 수 있다.
-  
+
 ### useEffect
 - useEffect는 side effect관련한 작업들을 실행해주는 리엑트 hook이다.
   
@@ -111,17 +111,22 @@ useEffect는 기본적으로 최초 렌더링시에 무조건 실행된다. 그�
   
 // https://cocoon1787.tistory.com/796
 
+  * 메모이제이션(Memoization)
+  https://ssminji.github.io/2020/02/05/the-cake-thief/
+  : 메모이제이션이란 특정 입력값에 대한 연산 결과를 메모리에 저장해두는 것을 의미하는데, 특정 연산에 대한 동일한 입력값에 대해 연산을 반복하지 않고, 이전 연산을 통해 메모이제이션 된 값을 이용함으로써 프로그램의 실행 속도를 높이는 것이다.
 useCallback
-- 
-useCallback(()=>{
-
-},[])
+ - 메모이제이션 된 함수를 반환해주는 기능을 한다. 
+useCallback(fn,[]);
+  
 useRef
 - 
 useContext 
 -
 useMemo
--
+- 메모이제이션된 값을 반환해주는 기능을 한다.  
+  const memoizedValue = useMemo(()=>fn,[]) 
+  기본적으로 위와 같이 사용되며, 두 번째 인자로 배열을 주지 않는 경우 매 렌더링 때마다 연산이 이루어진다. 배열에는 해당 함수에서 필요한 의존성(state 값)을 넣어주며, 
+  해당 의존성(state 값)이 변경될 때에만 해당 값으로 새롭게 연산이 이루어진다. useMemo는 복잡한 연산 등의 계산을 위해 사용되며 api 요청과 같은 비동기 작업의 경우는 useMemo   를 사용해서는 안 된다. 비동기 작업 등은 useEffect()를 통해 처리되어야 한다. 또한 의존성 값이 자주 변경되는 경우에도 useMemo()의 사용을 지양한다. 
 useImperativeHandle
 - 
 useLayoutEffect
@@ -176,3 +181,6 @@ ag-grid / spreadjs / react / kafka / java / spring / gradle
   @Value 값이 null로 들어가는 경우
   ~ static으로 선언된 정적 변수는 injection 할 수 없다.
 https://wildeveloperetrain.tistory.com/143
+  
+  
+  @Configuration / @Bean / @PostConstruct / @Value
