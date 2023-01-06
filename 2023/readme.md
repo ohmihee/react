@@ -184,3 +184,59 @@ https://wildeveloperetrain.tistory.com/143
   
   
   @Configuration / @Bean / @PostConstruct / @Value
+  
+- 문자열 배열 비교하기
+  const list = ['cocoa', 'coffee', 'icecream', 'chocolate'];
+  const mapped = (arr) => {
+    return arr.map((ele) => ele.toLowerCase());
+  };
+  const mapSorted = (arr, condition) => {
+    let result = 1;
+    if (condition === 'abc') {
+      result = -1;
+    }
+    return arr.sort((a, b) => {
+      if (a < b) return result;
+      else return -(result);
+    });
+  };
+  console.log(getValue(mapSorted(mapped(list), 'abc')));
+  // console.log(mapSorted(mapped(list), 'cba'));                            
+
+- string 타입의 숫자 정렬하기
+# sort
+  배열.sort((a,b)=>)
+  
+  sort 함수 이용시 기본적으로 본래의 배열이 정렬되는 것으로, 복사본을 생성하지는 않는다.
+  const strArr =  ['1.2', '1.0', '1.11', '1.1', '2.1', '9', '80'];
+  strArr.sort((a,b)=>{
+    if (a < b) return -1;
+    else return 1;
+  })
+  위와 같이 작성시 결과값은 ['1.0', '1.1', '1.11', '1.2', '2.1', '80', '9']이 된다.
+  이는 현재 sort 함수가 비교하는 것은 문자열이기 때문에, unicode를 통해 값을 비교하게 되는데, 숫자에서는 80이 9보다 크지만,
+  unicode를 통해 비교하면 9가 80보다 크기때문에 위와 같은 결과가 출력된다.
+              
+  위와 같은 문제를 방지하기 위해 문자열을 숫자 형태로 바꾸어 비교하였다.
+  // 오름차순
+  const strARr = ['1.2', '1.0', '1.11', '1.1', '2.1', '9', '80'];
+  strArr.sort((a,b) => {
+    if (parseFloat(a)<parseFloat(b)) return -1;
+    else return 1;
+  })
+                                     
+  // 내림차순
+  const strARr = ['1.2', '1.0', '1.11', '1.1', '2.1', '9', '80'];
+  strArr.sort((a,b) => {
+    if (parseFloat(a)<parseFloat(b)) return 1;
+    else return -1;
+  })
+     
+  sort() 함수는인자에 아무것도 넣어주지 않는 경우 각 요소의 문자열 변환에 따라 각 문자의 유니코드표에 대응하는 값을 비교한다.
+  그러나 위와 같이 문자열 비교나, 특별한 정렬 조건이 존재하는 경우에는 sort에 인자로 정렬을 위한 함수를 넣어주어야 한다.
+  반환값이 0보다 작은 경우 a를 b보다 낮은 색인으로 정렬하고, 0보다 큰 경우에는 a를 b보다 높은 색인으로 정렬하게 된다.
+  때문에 내림차순의 코드를 보면 a가 b보다 작다면 1을 주어 a의 색인을 b보다 높게 하여, 배열의 뒤로 갈수록 수가 작아지도록 정렬이 되게 하였다.
+                                     
+# localeCompare()
+  
+  
