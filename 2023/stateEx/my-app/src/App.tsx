@@ -2,21 +2,18 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import { Outlet, Link, useRoutes, useParams } from "react-router-dom";
 import ComponentEx from "./components/ComponentEx";
+import { Context } from './context/Context';
 
 
 function App() {
 
-    const [title, setTitle] = useState<string>("title");
-    const [count, setCount] = useState<number>(0);
+    const [ backgroundColor, setBackgroundColor ] = useState<string>('white');
 
-    useEffect(()=>{
-        return (
-            setCount(0)
-        )
-    }, [title])
   return (
     <div className="App">
-        <ComponentEx/>
+        <Context.Provider value={{backgroundColor, setBackgroundColor}}>
+            <ComponentEx/>
+        </Context.Provider>
     </div>
   );
 }

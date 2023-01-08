@@ -1,41 +1,38 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
+import ContextEx from "./ContextEx";
 
 const ComponentEx = () => {
-    const [ item, setItem ] = useState<string>('')
-    const [ list, setList ] = useState<string[]>([]);
 
-    const handleSetItem = (e:ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        setItem(e.target.value)
-    };
+    const [value, setValue] = useState<number>(0);
+    const [secondValue, setSecondValue] = useState<number>(0);
 
-    const addItemClick = () => {
-        const newList = [...list];
-        newList.push(item);
-        setList(newList);
+    const addValue = () => {
+        return value + 1;
+    }
+
+    const onClickAddValue = () => {
+        console.log('add value')
+        setValue(addValue);
+    }
+
+    const addSecondValue = useMemo(() => {
+        console.log('add second value')
+        return value + secondValue + 1;
+    }, [value]);
+
+    const onClickAddSecondValue = () => {
+        console.log('onclick add second value');
+        setSecondValue(addSecondValue);
     }
 
     return (
         <>
-            {
-                list.map((ele, index) =>(
-                    <div key={index}>
-                        {ele}
-                    </div>
-                ))
-            }
-            <input type="text" onChange={handleSetItem}/>
-            <button onClick={addItemClick}>아이템 추가</button>
+            <p>{value}</p>
+            <button onClick={onClickAddValue}>button</button>
+            <p>{secondValue}</p>
+            <button onClick={() => onClickAddSecondValue()}>second button</button>
         </>
     );
 }
 
 export default ComponentEx;
-
-
-// const addItemClick = () => {
-//     //list[0] = item;
-//     const newList = [...list];
-//     newList.push(item);
-//     setList(newList)
-// }
